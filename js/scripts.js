@@ -10,7 +10,7 @@ var colorWheel = [
 	],
 	[
 		{rgba: 'RGBA(0, 102, 102, 1.00)', subsets: ['blue', 'green']},
-		{rgba: 'RGBA(0, 102, 153, 1.00)', subsets: ['blue', 'grey']},
+		{rgba: 'RGBA(0, 102, 153, 1.00)', subsets: ['blue']},
 		{rgba: 'RGBA(0, 153, 204, 1.00)', subsets: ['blue']},
 		{rgba: 'RGBA(0, 102, 204, 1.00)', subsets: ['blue']},
 		{rgba: 'RGBA(0, 51, 204, 1.00)', subsets: ['blue']},
@@ -19,7 +19,7 @@ var colorWheel = [
 		{rgba: 'RGBA(51, 51, 153, 1.00)', subsets: ['blue']}
 	],
 	[
-		{rgba: 'RGBA(102, 153, 153, 1.00)', subsets: ['grey', 'green']},
+		{rgba: 'RGBA(102, 153, 153, 1.00)', subsets: ['green']},
 		{rgba: 'RGBA(0, 153, 153, 1.00)', subsets: ['green']},
 		{rgba: 'RGBA(51, 204, 204, 1.00)', subsets: ['green']},
 		{rgba: 'RGBA(0, 204, 255, 1.00)', subsets: ['blue']},
@@ -27,13 +27,13 @@ var colorWheel = [
 		{rgba: 'RGBA(0, 102, 255, 1.00)', subsets: ['blue']},
 		{rgba: 'RGBA(51, 102, 255, 1.00)', subsets: ['blue']},
 		{rgba: 'RGBA(51, 51, 204, 1.00)', subsets: ['blue']},
-		{rgba: 'RGBA(102, 102, 153, 1.00)', subsets: ['blue', 'grey', 'purple']},
+		{rgba: 'RGBA(102, 102, 153, 1.00)', subsets: ['blue', 'purple']},
 	],
 	[
 		{rgba: 'RGBA(51, 153, 102, 1.00)', subsets: ['green']},
 		{rgba: 'RGBA(0, 204, 153, 1.00)', subsets: ['green']},
 		{rgba: 'RGBA(0, 255, 204, 1.00)', subsets: ['green']},
-		{rgba: 'RGBA(0, 255, 255, 1.00)', subsets: ['green', 'blue']},
+		{rgba: 'RGBA(0, 255, 255, 1.00)', subsets: ['blue']},
 		{rgba: 'RGBA(51, 204, 255, 1.00)', subsets: ['blue']},
 		{rgba: 'RGBA(51, 153, 255, 1.00)', subsets: ['blue']},
 		{rgba: 'RGBA(102, 153, 255, 1.00)', subsets: ['blue']},
@@ -154,72 +154,117 @@ var colorWheel = [
 	]
 ]
 
-for(var i=0; i<colorWheel.length; i++){
-	$('#color-wheel').append('<div class="color-row" id="row' + i + '"></div>');
-	var row = $('#row' + i)
-	row.css({
-		width: colorWheel[i].length * 20 + colorWheel[i].length,
-	})
-	for(var j=0; j<colorWheel[i].length; j++){
-		row.append('<div class="color" id="color-' + i + '-' + j + '"></div>');
-		var color = $('#color-' + i + '-' + j)
-		color.css({
-			backgroundColor: colorWheel[i][j].rgba
-		});
-		for(var k=0; k<colorWheel[i][j].subsets.length; k++){
-			color.addClass(colorWheel[i][j].subsets[k]);
+$(document).ready(function(){
+
+	// cycle through colors in collection
+	// and construct our color wheel
+	for(var i=0; i<colorWheel.length; i++){
+		$('#color-wheel').append('<div class="color-row" id="row' + i + '"></div>');
+		var row = $('#row' + i)
+		row.css({
+			width: colorWheel[i].length * 20 + colorWheel[i].length,
+		})
+		for(var j=0; j<colorWheel[i].length; j++){
+			row.append('<div class="color" id="color-' + i + '-' + j + '"></div>');
+			var color = $('#color-' + i + '-' + j)
+			color.css({
+				backgroundColor: colorWheel[i][j].rgba
+			});
+			for(var k=0; k<colorWheel[i][j].subsets.length; k++){
+				color.addClass(colorWheel[i][j].subsets[k]);
+			}
 		}
 	}
-}
 
-function showSubsetColors(subset){
-	$('#colors-display').append('<div class="subset-display" id="' + subset + '"><h4>' + subset + '</h4><div>')
-	var colors = []
-	$.each(colorWheel, function(index, row){
-		$.each(row, function(i, color){
-			if($.inArray(subset, color.subsets) >= 0){
-				var x = $('#' + subset).append('<div class="color-display" style="background: ' + color.rgba + '"></div>');
-			}
+	function showSubsetColors(subset){
+		$('#colors-display').append('<div class="subset-display" id="' + subset + '"><h4>' + subset + '</h4><div>')
+		// $.each(colorWheel, function(index, row){
+		// 	$.each(row, function(i, color){
+		// 		if($.inArray(subset, color.subsets) >= 0){
+		// 			var x = $('#' + subset).append('<div class="color-display" style="background: ' + color.rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
+		// 		}
+		// 	})
+		// // })
+		
+		// for(var i=0; i<(colorWheel.length/2 + colorWheel.length%2); i++){
+		// 	for(var j=0; j<(colorWheel[i].length/2 + colorWheel[i].length%2); j++){
+		// 		if($.inArray(subset, colorWheel[i][j].subsets) >= 0){
+		// 			colors.push(colorWheel[i][j]);
+		// 		}
+		// 		if($.inArray(subset, colorWheel[i][colorWheel[i].length-1-j].subsets) >= 0){
+		// 			colors.push(colorWheel[i][colorWheel[i].length-1-j]);
+		// 		}
+		// 		if($.inArray(subset, colorWheel[colorWheel.length-1-i][j].subsets) >= 0){
+		// 			colors.push(colorWheel[colorWheel.length-1-i][j]);
+		// 		}
+		// 		if($.inArray(subset, colorWheel[colorWheel.length-1-i][colorWheel[i].length-1-j].subsets) >= 0){
+		// 			colors.push(colorWheel[colorWheel.length-1-i][colorWheel[i].length-1-j]);
+		// 		}
+		// 	}
+		// }
+
+		for(var i=0; i<7; i++){
+			$.each(colorWheel, function(index, row) {
+				if (index == i || index == (colorWheel.length-1-i)) {
+					for(var j=i; j<row.length-i; j++) {
+						if ($.inArray(subset, row[j].subsets) >= 0) {
+							var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[j].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
+							console.log("[" + index + "],[" + j + "]");
+						}
+					}
+				} else if (i < index && index < 6) {
+					if ($.inArray(subset, row[i].subsets) >= 0) {
+						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
+						console.log("i is less than index [" + index + "],[" + i + "]");
+					}
+				} else if (colorWheel.length-1-i > index && index > 6) {
+					if ($.inArray(subset, row[row.length-1-i].subsets) >= 0) {
+						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[row.length-1-i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
+						console.log("length - i greater than index [" + index + "],[" + (row.length-1-i) + "]");
+					}
+				}
+			})
+		}
+	}
+
+	$('#color-wheel').on('click', function(e){
+		// clear the inner html of our subset display
+		$('#colors-display').html('');
+		// select the div that was clicked on
+		var color = e.target;
+		var rgb = $(color).css('backgroundColor');
+		displayColor(rgb);
+		// grab the subsets from that color
+		var subsets = color.getAttribute('class').replace("color ", "");
+		var subsetArray = subsets.split(" ");
+		// print to screen the values of each color that is in the subsets
+		$.each(subsetArray, function(index,obj){
+			showSubsetColors(obj);
 		})
 	})
-}
 
-$('#color-wheel').on('click', function(e){
-	// clear the inner html of our subset display
-	$('#colors-display').html('');
-	// select the div that was clicked on
-	var color = e.target;
-	var rgb = $(color).css('backgroundColor');
-	displayColor(rgb);
-	// grab the subsets from that color
-	var subsets = color.getAttribute('class').replace("color ", "");
-	var subsetArray = subsets.split(" ");
-	// print to screen the values of each color that is in the subsets
-	$.each(subsetArray, function(index,obj){
-		showSubsetColors(obj);
+	$('#colors-display').on('click', function(e){
+		var color = e.target;
+		var rgb = $(color).css('backgroundColor');
+		displayColor(rgb);
 	})
-})
 
-$('#colors-display').on('click', function(e){
-	var color = e.target;
-	var rgb = $(color).css('backgroundColor');
-	displayColor(rgb);
-})
-
-$('#button').on('click', function(e){
-	$('#colors-display').html('');
-	e.preventDefault();
-	showSubsetColors($('#input').val());
-})
-
-function displayColor(rgb){
-	$('#color-selected').css({
-		display: 'block',
-		backgroundColor: rgb
+	$('#button').on('click', function(e){
+		$('#colors-display').html('');
+		e.preventDefault();
+		showSubsetColors($('#input').val());
 	})
-	$('#color-selected p').text(rgb);
-}
 
-function randomDivWidth(){
+	function displayColor(rgb){
+		$('#color-selected').css({
+			display: 'block',
+			backgroundColor: rgb
+		})
+		$('#color-selected p').text(rgb);
+	}
 
-}
+	function randomDivWidth(){
+		// return Math.floor(Math.random()*(101)+20);
+		return 60
+	}
+})
