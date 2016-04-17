@@ -173,22 +173,15 @@ for(var i=0; i<colorWheel.length; i++){
 }
 
 function showSubsetColors(subset){
+	$('#colors-display').append('<div class="subset-display" id="' + subset + '"><h4>' + subset + '</h4><div>')
 	var colors = []
 	$.each(colorWheel, function(index, row){
 		$.each(row, function(i, color){
 			if($.inArray(subset, color.subsets) >= 0){
-				var x = $('#colors-display').append('<div class="color-display" style="background: ' + color.rgba + '"></div>');
+				var x = $('#' + subset).append('<div class="color-display" style="background: ' + color.rgba + '"></div>');
 			}
 		})
 	})
-	for(var i=0; i<colorWheel.length; i++){
-		for(var j=0; j<colorWheel[i].length; j++){
-			var color = colorWheel[i][j]
-			if($.inArray(subset, color.subsets) >= 0){
-				var x = $('#colors-display').append('<div class="color-display" style="background: ' + color.rgba + '"></div>');
-			}
-		}
-	}
 }
 
 $('#color-wheel').on('click', function(e){
@@ -211,6 +204,12 @@ $('#colors-display').on('click', function(e){
 	var color = e.target;
 	var rgb = $(color).css('backgroundColor');
 	displayColor(rgb);
+})
+
+$('#button').on('click', function(e){
+	$('#colors-display').html('');
+	e.preventDefault();
+	showSubsetColors($('#input').val());
 })
 
 function displayColor(rgb){
