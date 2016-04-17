@@ -1,0 +1,56 @@
+form {
+	padding: 20px;
+	color: RGBA(153, 51, 51, 1.00);
+	width: 250px;
+	border: 2px solid RGBA(51, 102, 255, .2);
+	border-radius: 10px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+#input {
+	margin: 10px 0;
+}
+
+.color-row {
+	height: 20px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.color {
+	float: left;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 1px RGBA(0,0,0,.075) solid;
+	margin-right: 1px;
+}
+
+#colors-display {
+	width: 90%;
+	margin: 0 auto;
+	height: 40px;
+}
+
+.color-display {
+	float: left;
+	width: 40px;
+	height: 40px;
+	border: 1px RGBA(0,0,0,.075) solid;
+}
+
+#color-selected {
+	display: none;
+	border-radius: 5px;
+	height: 40px;
+	width: 150px;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 10px;
+}
+
+#color-selected p {
+	border-radius: 5px;
+	background: RGBA(0,0,0,.4);
+}
