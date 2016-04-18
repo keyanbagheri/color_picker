@@ -1,6 +1,5 @@
-h3 {
-	width: 60%;
-	margin: 0 auto;
+.heading {
+	text-align: center;
 }
 
 form {
@@ -56,6 +55,11 @@ form {
 	width: 250px;
 	margin: 0 auto;
 	border: 1px RGBA(0,0,0,.075) solid;
+}
+
+img {
+	width: 135px;
+	margin-left: 2px;
 }
 
 #color-selected p {
