@@ -1,3 +1,8 @@
+h3 {
+	width: 60%;
+	margin: 0 auto;
+}
+
 form {
 	padding: 5px 20px;
 	color: RGBA(153, 51, 51, 1.00);

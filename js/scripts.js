@@ -177,7 +177,8 @@ $(document).ready(function(){
 	}
 
 	function showSubsetColors(subset){
-		$('#colors-display').append('<div class="subset-display" id="' + subset + '"><h4>' + subset + '</h4><div>')
+		$('#input').attr("placeholder", subset);
+		$('#colors-display').append('<div class="subset-display" id="' + subset + '"><br><div class="btn btn-default btn-block">' + subset + ' subset</div><div><br>')
 		var colors = []
 		for(var i=0; i<7; i++){
 			$.each(colorWheel, function(index, row) {
@@ -185,27 +186,22 @@ $(document).ready(function(){
 					for(var j=i; j<row.length-i; j++) {
 						if ($.inArray(subset, row[j].subsets) >= 0) {
 							var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[j].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
-							// hightLightColor(subset)
 						}
 					}
 				} else if (i < index && index < 6) {
 					if ($.inArray(subset, row[i].subsets) >= 0) {
-						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
-						// hightLightColor(subset)
+						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>')
 					}
 				} else if (colorWheel.length-1-i > index && index > 6) {
 					if ($.inArray(subset, row[row.length-1-i].subsets) >= 0) {
-						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[row.length-1-i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
-						// hightLightColor(subset)
+						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[row.length-1-i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>')
 					}
 				} else if (index == 6) {
 					if ($.inArray(subset, row[i].subsets) >= 0) {
-						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
-						// hightLightColor(subset)
+						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>')
 					}
 					if ($.inArray(subset, row[row.length-1-i].subsets) >= 0) {
-						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[row.length-1-i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
-						// hightLightColor(subset)
+						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[row.length-1-i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>')
 					}
 				}
 			})
@@ -213,31 +209,40 @@ $(document).ready(function(){
 	}
 
 	$('#color-wheel').on('click', function(e){
-		// clear the inner html of our subset display
-		$('#colors-display').html('');
 		// select the div that was clicked on
 		var color = e.target;
 		var rgb = $(color).css('backgroundColor');
-		displayColor(rgb);
-		// grab the subsets from that color
-		var subsets = color.getAttribute('class').replace("color ", "");
-		var subsetArray = subsets.split(" ");
-		// print to screen the values of each color that is in the subsets
-		$.each(subsetArray, function(index,obj){
-			showSubsetColors(obj);
-		})
+		console.log(rgb);
+		if (rgb != 'rgba(0, 0, 0, 0)'){
+			// clear the inner html of our subset display
+			$('#colors-display').html('');
+			displayColor(rgb);
+			// grab the subsets from that color
+			var subsets = color.getAttribute('class').replace("color ", "");
+			var subsetArray = subsets.split(" ");
+			// print to screen the values of each color that is in the subsets
+			$.each(subsetArray, function(index,obj){
+				showSubsetColors(obj);
+			})
+		}
 	})
 
 	$('#colors-display').on('click', function(e){
-		var color = e.target;
-		var rgb = $(color).css('backgroundColor');
-		displayColor(rgb);
+		var evt = e.target;
+		if (evt.getAttribute('class') == "btn btn-default btn-block") {
+			$('#input').val($(evt).text().replace(' subset', ''))
+			$('#button').trigger('click');
+		} else {
+			var rgb = $(evt).css('backgroundColor');
+			displayColor(rgb);
+		}
 	})
 
 	$('#button').on('click', function(e){
 		$('#colors-display').html('');
 		e.preventDefault();
 		showSubsetColors($('#input').val());
+		$('#input').val('');
 	})
 
 	function displayColor(rgb){
@@ -251,18 +256,4 @@ $(document).ready(function(){
 	function randomDivWidth(){
 		return Math.floor(Math.random()*(101)+20);
 	}
-
-	// function hightLightColor(subset){
-	// 	var rgb = $('#' + subset + ' div:last-child').css('backgroundColor')
-	// 	var colors = $('.color')
-	// 	$.each(colors, function(index, color){
-	// 		console.log(rgb);
-	// 		console.log($(color).css('backgroundColor'));
-	// 		if ($(color).css('backgroundColor') == rgb) {
-	// 			$(color).css("border","white solid 5px")
-	// 		} else {
-	// 			$(color).css("1px RGBA(0,0,0,.075) solid")
-	// 		}
-	// 	})
-	// }
 })
