@@ -178,34 +178,34 @@ $(document).ready(function(){
 
 	function showSubsetColors(subset){
 		$('#colors-display').append('<div class="subset-display" id="' + subset + '"><h4>' + subset + '</h4><div>')
-
+		var colors = []
 		for(var i=0; i<7; i++){
 			$.each(colorWheel, function(index, row) {
 				if (index == i || index == (colorWheel.length-1-i)) {
 					for(var j=i; j<row.length-i; j++) {
 						if ($.inArray(subset, row[j].subsets) >= 0) {
 							var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[j].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
-							console.log("[" + index + "],[" + j + "]");
+							// hightLightColor(subset)
 						}
 					}
 				} else if (i < index && index < 6) {
 					if ($.inArray(subset, row[i].subsets) >= 0) {
 						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
-						console.log("i is less than index [" + index + "],[" + i + "]");
+						// hightLightColor(subset)
 					}
 				} else if (colorWheel.length-1-i > index && index > 6) {
 					if ($.inArray(subset, row[row.length-1-i].subsets) >= 0) {
 						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[row.length-1-i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
-						console.log("length - i greater than index [" + index + "],[" + (row.length-1-i) + "]");
+						// hightLightColor(subset)
 					}
 				} else if (index == 6) {
 					if ($.inArray(subset, row[i].subsets) >= 0) {
 						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
-						console.log("i is less than index [" + index + "],[" + i + "]");
+						// hightLightColor(subset)
 					}
 					if ($.inArray(subset, row[row.length-1-i].subsets) >= 0) {
 						var x = $('#' + subset).append('<div class="color-display" style="background: ' + row[row.length-1-i].rgba + '; width: ' + randomDivWidth() + 'px;"></div>');
-						console.log("length - i greater than index [" + index + "],[" + (row.length-1-i) + "]");
+						// hightLightColor(subset)
 					}
 				}
 			})
@@ -251,4 +251,18 @@ $(document).ready(function(){
 	function randomDivWidth(){
 		return Math.floor(Math.random()*(101)+20);
 	}
+
+	// function hightLightColor(subset){
+	// 	var rgb = $('#' + subset + ' div:last-child').css('backgroundColor')
+	// 	var colors = $('.color')
+	// 	$.each(colors, function(index, color){
+	// 		console.log(rgb);
+	// 		console.log($(color).css('backgroundColor'));
+	// 		if ($(color).css('backgroundColor') == rgb) {
+	// 			$(color).css("border","white solid 5px")
+	// 		} else {
+	// 			$(color).css("1px RGBA(0,0,0,.075) solid")
+	// 		}
+	// 	})
+	// }
 })
